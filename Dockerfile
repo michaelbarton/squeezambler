@@ -9,5 +9,4 @@ RUN tar xzf /opt/squeezambler.tar.gz --directory /opt/squeezambler --strip-compo
 RUN ln -s /opt/squeezambler/bin/* /usr/local/bin/
 
 ADD run /usr/local/bin/
-ADD adaptive /usr/local/bin/
 ADD Procfile /
