@@ -15,8 +15,8 @@ STAGE_DIR=`mktemp -d`
 for file in $READS/*
 do
   STEM=$(basename "${file}" .gz)
-  DEST_PATH = $STAGE_DIR/"${STEM}"
-  gunzip -c $file $DEST_PATH
+  DEST_PATH=$STAGE_DIR/"${STEM}"
+  gunzip -c $file > $DEST_PATH
   echo -e ">q\t"$DEST_PATH >> $INPUT_FILE
 done
 
