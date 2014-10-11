@@ -1,1 +1,1 @@
-default: squeezambler -O=${TMP_DIR} ${INPUT_FILE}
+default: squeezambler -O=${OUTPUT_PREFIX} ${INPUT_FILE}
