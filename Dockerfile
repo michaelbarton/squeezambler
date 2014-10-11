@@ -10,3 +10,5 @@ RUN ln -s /opt/squeezambler/bin/* /usr/local/bin/
 
 ADD run /usr/local/bin/
 ADD Procfile /
+
+ENTRYPOINT ["run"]
