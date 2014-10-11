@@ -34,6 +34,7 @@ exec > >(tee ${LOG})
 exec 2>&1
 
 TMP_DIR=`mktemp -d`
+OUTPUT_PREFIX=${TMP_DIR}/contigs
 
 # Determine which process to run
 PROC=$1
