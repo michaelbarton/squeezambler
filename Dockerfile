@@ -1,12 +1,16 @@
-FROM ubuntu
-RUN apt-get update
-RUN apt-get install -y libgomp1
-#need to use wget instead of ADD to download squeezambler because it's hosted on sourceforge...
-RUN apt-get install -y wget
-RUN wget http://sourceforge.net/projects/hyda/files/squeezambler-2.0.3-hyda-1.3.1.tar.gz -O /opt/squeezambler.tar.gz
-RUN mkdir /opt/squeezambler
-RUN tar xzf /opt/squeezambler.tar.gz --directory /opt/squeezambler --strip-components=1
-RUN ln -s /opt/squeezambler/bin/* /usr/local/bin/
+FROM debian:wheezy
+
+RUN echo "deb http://http.us.debian.org/debian testing main" > /etc/apt/sources.list
+RUN apt-get update -y
+RUN apt-get install -y --no-install-recommends libgomp1 libc6-dev wget && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV TAR http://sourceforge.net/projects/hyda/files/squeezambler-2.0.3-hyda-1.3.1.tar.gz
+ENV DIR /opt/squeezambler
+
+RUN mkdir ${DIR}
+RUN wget ${TAR} -O - | tar xzf - --directory ${DIR} --strip-components=1
+RUN ln -s ${DIR}/bin/* /usr/local/bin/
 
 ADD run /usr/local/bin/
 ADD Procfile /
