@@ -8,7 +8,7 @@ ENV DIR /opt/squeezambler
 
 RUN mkdir ${DIR}
 RUN wget ${TAR} -O - | tar xzf - --directory ${DIR} --strip-components=1
-RUN ln -s /opt/squeezambler/bin/* /usr/local/bin/
+RUN ln -s ${DIR}/bin/* /usr/local/bin/
 
 ADD run /usr/local/bin/
 ADD Procfile /
