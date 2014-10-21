@@ -28,7 +28,6 @@ echo -e ">q\t"${FASTQ} > ${INPUT_FILE}
 
 TMP_DIR=`mktemp -d`
 
-
 OUTPUT_PREFIX=${TMP_DIR}/contigs
 
 # Determine which process to run
@@ -42,3 +41,4 @@ fi
 eval ${CMD}
 
 cp $TMP_DIR/contigs.fasta $ASSEMBLY
+cat ${TMP_DIR}/contigs.log >> ${LOG}
