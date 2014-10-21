@@ -1,4 +1,6 @@
-FROM ubuntu
+FROM debian:wheezy
+
+
 RUN apt-get update
 RUN apt-get install -y libgomp1
 #need to use wget instead of ADD to download squeezambler because it's hosted on sourceforge...
