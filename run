@@ -8,19 +8,6 @@ set -o nounset
 # The will be present in a read-only directory
 READS=$2
 
-
-# gunzip all fastq.gz files and then create an input file for Squeezambler
-INPUT_FILE=`mktemp`
-STAGE_DIR=`mktemp -d`
-for file in $READS/*
-do
-  STEM=$(basename "${file}" .gz)
-  DEST_PATH=$STAGE_DIR/"${STEM}"
-  gunzip -c $file > $DEST_PATH
-  echo -e ">q\t"$DEST_PATH >> $INPUT_FILE
-done
-
-
 # The second argument is a directory with write-access where the final
 # assembly should be written to.
 DIR=$3
@@ -33,7 +20,15 @@ LOG=$DIR/log.txt
 exec > >(tee ${LOG})
 exec 2>&1
 
+FASTQ=`mktemp`
+INPUT_FILE=`mktemp`
+
+gunzip --to-stdout ${READS} > ${FASTQ}
+echo -e ">q\t"${FASTQ} > ${INPUT_FILE}
+
 TMP_DIR=`mktemp -d`
+
+
 OUTPUT_PREFIX=${TMP_DIR}/contigs
 
 # Determine which process to run
